@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0c1730" />
+  <title>CurveLab AI | Quadratic Functions</title>
+  <style>
+    :root{--ink:#182540;--muted:#65748f;--primary:#5654d7;--violet:#e8e7ff;--card:#fff;--line:#e3e8f2;--bg:#f5f7fc;--good:#16865d;--warn:#ad6f20}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.52 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    button,input{font:inherit} button{cursor:pointer} button:focus-visible,input:focus-visible{outline:3px solid #b1abff;outline-offset:2px}
+    header{background:#0c1730;color:white;padding:19px max(22px,calc((100vw - 1200px)/2));display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .brand{font-size:20px;font-weight:800;letter-spacing:-.5px}.brand span{color:#9f9aff}.toplabel{color:#bac5e3;font-size:12px;letter-spacing:.11em;text-transform:uppercase}
+    .tag{border:1px solid #425273;border-radius:99px;padding:5px 11px;color:#cad6f5;font-size:12px}
+    main{max-width:1200px;margin:auto;padding:34px 22px 70px}.intro{display:flex;justify-content:space-between;align-items:end;gap:26px;margin-bottom:27px}
+    .kicker{font-size:12px;text-transform:uppercase;font-weight:800;letter-spacing:.15em;color:#6764d7}.intro h1{font-size:clamp(33px,4vw,52px);letter-spacing:-.055em;line-height:1.12;margin:10px 0}.intro h1 span{color:#6059da}.intro p{color:var(--muted);max-width:650px;margin:0}
+    .stat{background:white;border:1px solid var(--line);padding:15px 18px;border-radius:16px;min-width:176px;color:#525f79;font-size:12px}.stat strong{display:block;color:#20274a;font-size:19px}
+    .levels{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:25px}.level{background:white;border:2px solid #e5e9f4;border-radius:17px;text-align:left;padding:19px;min-height:126px;transition:.15s}
+    .level:hover{border-color:#b9b4fa;transform:translateY(-1px)}.level.active{border-color:#6a61e7;background:#f4f2ff;box-shadow:0 7px 19px #6b63ec12}.level small{display:block;color:#6c6ab6;font-weight:800;text-transform:uppercase;letter-spacing:.09em}.level strong{display:block;font-size:19px;margin:5px 0}.level span{color:#66728a;font-size:13px}
+    .workspace{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(340px,.92fr);gap:21px;align-items:start}.panel{background:white;border:1px solid var(--line);border-radius:19px;overflow:hidden;box-shadow:0 11px 30px #16254a0a}
+    .panel-head{padding:20px 23px;border-bottom:1px solid var(--line);display:flex;gap:12px;justify-content:space-between;align-items:center}.panel-head strong{font-size:17px}.pill{padding:5px 10px;border-radius:30px;font-size:11px;font-weight:800;background:#f0eeff;color:#534dd6}
+    .inner{padding:22px}.eyebrow{font-size:12px;color:#817aab;text-transform:uppercase;font-weight:800;letter-spacing:.13em}
+    .equation{background:#f6f7ff;border:1px solid #e8e9fb;text-align:center;padding:19px 8px;border-radius:13px;font-size:clamp(24px,3vw,34px);font-weight:700;letter-spacing:.015em;margin:12px 0 19px;font-family:Georgia,serif}
+    .question{font-size:17px;font-weight:650;margin:0 0 14px}.context{background:#f9fafc;border-left:4px solid #7973e8;border-radius:0 10px 10px 0;color:#53627d;margin:0 0 15px;padding:13px}
+    .answerlabel{font-weight:750;font-size:14px;display:block;margin:20px 0 7px}input{border:1px solid #ccd5e5;background:white;border-radius:11px;padding:13px;width:100%;max-width:440px;color:#1e2d50}
+    .help{font-size:12px;color:var(--muted);margin:6px 0 13px}.actions{display:flex;flex-wrap:wrap;gap:9px;margin:15px 0}.btn{border:1px solid #d6dcf0;padding:11px 16px;border-radius:11px;background:white;font-weight:750;font-size:13px;color:#394567;transition:.15s}.btn:hover{background:#f5f4ff}.btn.primary{border-color:#5856d8;background:#5856d8;color:white}.btn.primary:hover{background:#4945bb}.btn:disabled{cursor:wait;opacity:.6}
+    #feedback,#tutorText{margin-top:13px;display:none;background:#f7f7fc;border:1px solid #e1e3f1;border-radius:12px;padding:15px;color:#43516d;white-space:pre-wrap;line-height:1.62}#feedback.good{display:block;background:#f0fbf5;border-color:#bfe8d0;color:#16744c}#feedback.bad{display:block;background:#fff9ee;border-color:#f6ddab;color:#906226}
+    .legend{display:flex;justify-content:space-between;align-items:center;color:#68768b;font-size:12px;margin-bottom:6px}.graph{display:block;width:100%;height:auto;border-radius:12px;background:#fafbff;border:1px solid #e7ebf3}
+    .tip{font-size:13px;color:#76849a;line-height:1.5;margin:13px 0 0}.stepbox{margin-top:19px;border-top:1px solid var(--line);padding-top:19px}.stepbox h3{font-size:16px;margin:0 0 10px}.stepbox p{font-size:14px;color:#5d6b83}
+    .flowbar{display:flex;justify-content:space-between;gap:16px;border-radius:12px;padding:14px;background:#f2f8ff;margin-bottom:15px}.flowbar strong{font-size:13px}.flowbar small{font-size:12px;color:#6f7f9c}
+    footer{margin-top:24px;color:#7c89a0;text-align:center;font-size:12px}
+    @media(max-width:790px){.workspace{grid-template-columns:1fr}.levels{grid-template-columns:1fr}.level{min-height:unset}.intro{align-items:start;flex-direction:column}.stat{display:none}main{padding:23px 14px 50px}.inner{padding:17px}.panel-head{padding:17px}header{padding:16px}}
+  </style>
+</head>
+<body>
+  <header><div><div class="brand">◉ CurveLab <span>AI</span></div><div class="toplabel">Learn • Explore • Grow</div></div><span class="tag">GRADE 9 · MATH</span></header>
+  <main>
+    <section class="intro"><div><div class="kicker">Adaptive learning studio</div><h1>One concept.<br><span>Three ways to grow.</span></h1><p>Explore quadratic functions at your own pace. Choose your learning level, see the parabola, try a problem, and receive personalized support.</p></div><div class="stat"><strong>3 learning paths</strong>Foundation → Advanced</div></section>
+    <section class="levels" aria-label="Difficulty levels">
+      <button class="level active" data-level="foundation" aria-pressed="true"><small>Level 01</small><strong>🌱 Foundation</strong><span>Guided, direct hints and one key idea</span></button>
+      <button class="level" data-level="standard" aria-pressed="false"><small>Level 02</small><strong>📐 Standard</strong><span>Grade-level reasoning and graph analysis</span></button>
+      <button class="level" data-level="advanced" aria-pressed="false"><small>Level 03</small><strong>🚀 Advanced</strong><span>Multi-step modeling and real-life applications</span></button>
+    </section>
+    <div class="workspace">
+      <section class="panel">
+        <div class="panel-head"><strong>Practice problem</strong><span class="pill" id="levelTag">FOUNDATION</span></div>
+        <div class="inner">
+          <div class="flowbar"><div><strong>Target concept</strong><br><small>Vertex of a quadratic function</small></div><small id="modeTag">Practice mode</small></div>
+          <div class="eyebrow">Your function</div><div id="equation" class="equation"></div>
+          <div id="scenario" class="context"></div><p id="question" class="question"></p>
+          <label for="answer" class="answerlabel">Your answer</label><input id="answer" autocomplete="off" placeholder="Enter your answer" />
+          <div class="help" id="answerHelp"></div>
+          <div class="actions"><button class="btn primary" id="checkBtn">Check answer</button><button class="btn" id="hintBtn">Give me a hint</button><button class="btn" id="newBtn">New AI task ✨</button></div>
+          <div id="feedback" aria-live="polite"></div><div id="tutorText" aria-live="polite"></div>
+        </div>
+      </section>
+      <section class="panel"><div class="panel-head"><strong>Visual math explorer</strong><span class="pill">INTERACTIVE GRAPH</span></div><div class="inner">
+        <div class="legend"><span>Parabola: <b style="color:#6c5ce7">purple curve</b></span><span>● Vertex</span></div>
+        <canvas id="graph" class="graph" width="640" height="420" role="img" aria-label="Graph of quadratic function with its vertex"></canvas>
+        <p class="tip">The vertex is the turning point of a parabola. Move between levels to see how this same idea appears in different problems.</p>
+        <div class="stepbox"><h3>🧠 Learning support</h3><p>Try without help first. Need a nudge? Open a hint. Stuck completely? The AI tutor can explain the solution at your selected level.</p><button class="btn" id="solutionBtn">Explain step by step ✦</button></div>
+      </div></section>
+    </div><footer>CurveLab AI · Educational Technology &amp; AI · Quadratic Functions for Grade 9 · AI explanations require deployment with a configured Gemini API key.</footer>
+  </main>
+<script>
+(()=>{
+  'use strict';
+  const $=id=>document.getElementById(id);
+  const buttons=[...document.querySelectorAll('.level')];
+  let level='foundation';
+  const examples={
+    foundation:{a:1,b:-4,c:3,story:'Think of a U-shaped curve. Its lowest point is called the vertex.'},
+    standard:{a:1,b:-4,c:3,story:'Study both the turning point and where the graph crosses the x-axis.'},
+    advanced:{a:-1,b:6,c:4,story:'A ball is launched upwards. h(t) describes its height in metres after t seconds.'}
+  };
+  let task={...examples.foundation};
+  const num=v=>Number.parseFloat(v);
+  const tidy=n=>Number.isInteger(n)?String(n):String(Math.round(n*100)/100);
+  const vertex=t=>({x:-t.b/(2*t.a),y:t.c-t.b*t.b/(4*t.a)});
+  const equation=t=>{const lead=t.a===1?'':t.a===-1?'-':tidy(t.a);const part=(n,v)=>n===0?'':`${n>0?' + ':' − '}${Math.abs(n)===1&&v?'':tidy(Math.abs(n))}${v}`;return `${level==='advanced'?'h(t)':'y'} = ${lead}${level==='advanced'?'t':'x'}²${part(t.b,level==='advanced'?'t':'x')}${part(t.c,'')}`;};
+  function newTaskLocal(l){
+    if(l==='foundation'){const v=1+Math.floor(Math.random()*4),d=1+Math.floor(Math.random()*2);return {a:1,b:-2*v,c:v*v-d*d,story:'Find the line of symmetry using the vertex formula.'};}
+    if(l==='standard'){const v=Math.floor(Math.random()*5)-1,d=1+Math.floor(Math.random()*3),a=[1,1,2,-1][Math.floor(Math.random()*4)];return {a,b:-2*a*v,c:a*(v*v-d*d),story:'Analyse the vertex, symmetry and intercepts of this quadratic.'};}
+    const v=2+Math.floor(Math.random()*3),a=-1,k=16+Math.floor(Math.random()*5);return {a,b:-2*a*v,c:k+a*v*v,story:'A ball moves vertically. h(t) is its height (metres) after t seconds.'};
+  }
+  function formatQuestion(){const v=vertex(task);if(level==='foundation')return 'What is the x-coordinate of the vertex?';if(level==='standard')return 'Find the vertex as an ordered pair (x, y).';return 'At what time does the ball reach its maximum height, and what is that height? Answer (time, height).';}
+  function render(){
+    $('levelTag').textContent=level.toUpperCase();$('equation').textContent=equation(task);$('scenario').textContent=task.story;$('question').textContent=formatQuestion();
+    $('answerHelp').textContent=level==='foundation'?'Example answer: 2':level==='standard'?'Example answer: (2, -1)':'Example answer: (3, 13)';
+    $('answer').value='';$('answer').placeholder=level==='foundation'?'e.g. 2':level==='standard'?'e.g. (2, -1)':'e.g. (3, 13)';
+    $('feedback').style.display='none';$('tutorText').style.display='none';drawGraph();
+  }
+  function parseNumbers(s){const m=s.replace(/−/g,'-').match(/[-+]?\d*\.?\d+/g);return m?m.map(Number):[];}
+  function isCorrect(a){const v=vertex(task),numbers=parseNumbers(a),close=(x,y)=>Math.abs(x-y)<.011;
+    if(level==='foundation')return numbers.length===1&&close(numbers[0],v.x);
+    return numbers.length===2&&close(numbers[0],v.x)&&close(numbers[1],v.y);
+  }
+  function localHint(){if(level==='foundation')return `Start with the formula x = −b/(2a). Here a = ${task.a} and b = ${task.b}. Substitute them first.`;
+    if(level==='standard')return `Find x = −b/(2a). Then substitute this x into y = ax² + bx + c to get the second coordinate.`;
+    return 'The maximum height happens at the vertex because the coefficient of t² is negative. First calculate t = −b/(2a), then h(t).';}
+  function localSolution(){const v=vertex(task);const steps=[`1. Identify a = ${task.a}, b = ${task.b}, and c = ${task.c}.`,`2. Vertex horizontal coordinate: ${level==='advanced'?'t':'x'} = −b/(2a) = ${tidy(v.x)}.`,`3. Substitute into the equation to get ${level==='advanced'?'h':'y'} = ${tidy(v.y)}.`];
+    if(level==='foundation')steps.push(`Answer: ${tidy(v.x)}. The x-coordinate locates the axis of symmetry.`);
+    if(level==='standard')steps.push(`Answer: (${tidy(v.x)}, ${tidy(v.y)}). This is the turning point.`);
+    if(level==='advanced')steps.push(`Answer: (${tidy(v.x)}, ${tidy(v.y)}): after ${tidy(v.x)} s, the maximum height is ${tidy(v.y)} m.`);
+    return steps.join('\n');
+  }
+  function showTutor(label,message){const target=$('tutorText');target.textContent=`${label}\n\n${message}`;target.style.display='block';}
+  async function askAI(action,answer=''){
+    const res=await fetch('/api/tutor',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,level,problem:task,answer})});
+    let json={};try{json=await res.json();}catch(_){/* service may not be deployed */}
+    if(!res.ok)throw Error(json.error||'AI service is not available yet. Connect your Gemini API key on Vercel.');
+    $('modeTag').textContent='✦ Gemini AI connected';return json;
+  }
+  function busy(v){for(const id of ['checkBtn','hintBtn','newBtn','solutionBtn'])$(id).disabled=v;}
+  function setLevel(next){level=next;task={...examples[next]};buttons.forEach(btn=>{let on=btn.dataset.level===next;btn.classList.toggle('active',on);btn.setAttribute('aria-pressed',on?'true':'false');});render();}
+  buttons.forEach(btn=>btn.addEventListener('click',()=>setLevel(btn.dataset.level)));
+  $('newBtn').addEventListener('click',async()=>{busy(true);const chosen=level;let next=newTaskLocal(chosen);try{const r=await askAI('generate');if(level!==chosen)return;next={...r.problem,story:r.text||next.story};}catch(e){$('modeTag').textContent='Practice mode · AI not connected';}finally{busy(false);}if(level===chosen){task=next;render();}});
+  $('hintBtn').addEventListener('click',async()=>{showTutor('💡 Guided hint',localHint());busy(true);try{const r=await askAI('hint');showTutor('✨ AI-personalized hint',r.text);}catch(e){showTutor('💡 Guided hint (offline)',localHint()+'\n\nAI is not connected yet.');}finally{busy(false);}});
+  $('solutionBtn').addEventListener('click',async()=>{showTutor('📘 Verified steps',localSolution());busy(true);try{const r=await askAI('explain');showTutor('✨ AI explanation + verified solution',r.text+'\n\nVerified calculation:\n'+localSolution());}catch(e){showTutor('📘 Verified steps (offline)',localSolution()+'\n\nAI is not connected yet.');}finally{busy(false);}});
+  $('checkBtn').addEventListener('click',async()=>{
+    const answer=$('answer').value.trim();const box=$('feedback');if(!answer){box.textContent='Please enter an answer first.';box.className='bad';return;}
+    const right=isCorrect(answer);box.className=right?'good':'bad';box.textContent=right?'✓ Correct! You found the vertex.':'Not quite. Review the vertex formula, and try again.';
+    busy(true);try{const r=await askAI('check',answer);showTutor('✨ AI feedback',r.text);}catch(e){showTutor('Teacher tip (offline)',right?'Great work. Now see how the vertex appears on the graph.':localHint());}finally{busy(false);}
+  });
+  $('answer').addEventListener('keydown',e=>{if(e.key==='Enter')$('checkBtn').click();});
+  function drawGraph(){
+    const canvas=$('graph'),ctx=canvas.getContext('2d');if(!ctx)return;const w=canvas.width,h=canvas.height,v=vertex(task);
+    ctx.clearRect(0,0,w,h);ctx.fillStyle='#fafbff';ctx.fillRect(0,0,w,h);
+    const xr=level==='advanced'?[Math.min(-1,v.x-5),Math.max(8,v.x+5)]:[v.x-6,v.x+6];
+    const curve=x=>task.a*x*x+task.b*x+task.c;
+    let vals=[];for(let i=0;i<=100;i++)vals.push(curve(xr[0]+(xr[1]-xr[0])*i/100));
+    let ymin=Math.min(...vals,v.y,0),ymax=Math.max(...vals,v.y,0);let range=Math.max(8,ymax-ymin);ymin-=range*.10;ymax+=range*.10;
+    const px=x=>44+(x-xr[0])/(xr[1]-xr[0])*(w-68),py=y=>h-37-(y-ymin)/(ymax-ymin)*(h-62);
+    ctx.strokeStyle='#e8eaf4';ctx.lineWidth=1;
+    for(let i=0;i<=10;i++){let x=44+i*(w-68)/10;ctx.beginPath();ctx.moveTo(x,16);ctx.lineTo(x,h-37);ctx.stroke();}
+    for(let i=0;i<=8;i++){let y=18+i*(h-55)/8;ctx.beginPath();ctx.moveTo(44,y);ctx.lineTo(w-24,y);ctx.stroke();}
+    ctx.strokeStyle='#9aa8be';ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(44,py(0));ctx.lineTo(w-24,py(0));ctx.moveTo(px(0),18);ctx.lineTo(px(0),h-37);ctx.stroke();
+    ctx.font='14px system-ui';ctx.fillStyle='#8491a8';ctx.fillText(level==='advanced'?'time (t)':'x',w-33,Math.min(h-41,py(0)-8));ctx.fillText(level==='advanced'?'height':'y',Math.max(45,px(0)+7),22);
+    ctx.strokeStyle='#6659dd';ctx.lineWidth=4;ctx.beginPath();for(let i=0;i<=240;i++){const x=xr[0]+(xr[1]-xr[0])*i/240,y=curve(x);i?ctx.lineTo(px(x),py(y)):ctx.moveTo(px(x),py(y));}ctx.stroke();
+    ctx.setLineDash([5,5]);ctx.strokeStyle='#9c91e9';ctx.beginPath();ctx.moveTo(px(v.x),20);ctx.lineTo(px(v.x),h-37);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#ff8f4e';ctx.beginPath();ctx.arc(px(v.x),py(v.y),7,0,Math.PI*2);ctx.fill();ctx.font='bold 14px system-ui';ctx.fillStyle='#5546a9';const tx=Math.max(49,Math.min(w-110,px(v.x)+12));const ty=Math.max(29,Math.min(h-48,py(v.y)-12));ctx.fillText(`(${tidy(v.x)}, ${tidy(v.y)})`,tx,ty);
+  }
+  render();
+})();
+</script>
+</body>
+</html>
